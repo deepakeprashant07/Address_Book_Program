@@ -25,9 +25,20 @@ public class PersonInfo {
         person.add(p);
     }
 
+    public void deleteInformation(String n) {
+        for (int i = 0; i < person.size(); i++) {
+            if (n.equals(person.get(i).firstName)) {
+                System.out.println("DELETED ALL INFORMATION " + person.get(i).firstName + " " + person.get(i).lastName);
+                person.remove(i);
+
+            }
+        }
+    }
+
     public void editInformation(String n) {
         for (int i = 0; i < person.size(); i++) {
             if (n.equals(person.get(i).firstName)) {
+                String name = person.get(i).firstName;
                 person.remove(i);
                 PersonInfo p = new PersonInfo();
                 System.out.println("UPDATE PERSON FIRST NAME AND LAST NAME");
@@ -44,6 +55,7 @@ public class PersonInfo {
                 System.out.println("UPDATE PERSON EMAIL ID");
                 p.emailId = scan.next();
                 person.add(p);
+                System.out.println("UPDATED ALL INFORMATION =" + name);
                 break;
             }
         }

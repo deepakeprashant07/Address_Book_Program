@@ -9,8 +9,9 @@ public class AddressBook {
         while (true) {
             System.out.println("1] ADD PERSON INFORMATION");
             System.out.println("2] EDIT PERSON INFORMATION");
-            System.out.println("3] HISTORY");
-            System.out.println("4] Exit");
+            System.out.println("3] DELETE PERSON INFORMATION");
+            System.out.println("4] HISTORY");
+            System.out.println("5] Exit");
             int choice = scan.nextInt();
             switch (choice) {
                 case 1:
@@ -22,9 +23,14 @@ public class AddressBook {
                     person.editInformation(name);
                     break;
                 case 3:
-                    person.display();
+                    System.out.println("ENTER PERSON NAME");
+                    name = scan.next();
+                    person.deleteInformation(name);
                     break;
                 case 4:
+                    person.display();
+                    break;
+                case 5:
                     System.exit(0);
             }
         }
