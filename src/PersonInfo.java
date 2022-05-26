@@ -1,29 +1,36 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class PersonInfo {
     public String firstName, lastName, address, city, state;
     public String zip, phoneNumber, emailId;
+    ArrayList<PersonInfo> person = new ArrayList<PersonInfo>();
 
     public void addPerson() {
+        PersonInfo p = new PersonInfo();
         Scanner scan = new Scanner(System.in);
         System.out.println("ENTER PERSON FIRST NAME AND LAST NAME");
-        firstName = scan.next();
-        lastName = scan.next();
+        p.firstName = scan.next();
+        p.lastName = scan.next();
         System.out.println("ENTER ADDRESS AND CITY NAME");
-        address = scan.next();
-        city = scan.next();
+        p.address = scan.next();
+        p.city = scan.next();
         System.out.println("ENTER STATE AND ZIP");
-        state = scan.next();
-        zip = scan.next();
+        p.state = scan.next();
+        p.zip = scan.next();
         System.out.println("ENTER PERSON PHONE NUMBER");
-        phoneNumber = scan.next();
+        p.phoneNumber = scan.next();
         System.out.println("ENTER PERSON EMAIL ID");
-        emailId = scan.next();
+        p.emailId = scan.next();
+        person.add(p);
     }
 
     public void display() {
-        System.out.println("PERSON NAME = " + firstName + " " + lastName);
-        System.out.println("PERSON ADDRESS = " + address + " " + city + " " + state + " " + zip);
-        System.out.println("PERSON PHONE NUMBER = " + phoneNumber + "\nEMAIL ID = " + emailId);
+        for (int i = 0; i < person.size(); i++) {
+            System.out.println("PERSON NAME = " + person.get(i).firstName + " " + person.get(i).lastName);
+            System.out.println("PERSON ADDRESS = " + person.get(i).address + " " + person.get(i).city + " " + person.get(i).state + " " + person.get(i).zip);
+            System.out.println("PERSON PHONE NUMBER = " + person.get(i).phoneNumber + "\nEMAIL ID = " + person.get(i).emailId);
+            System.out.println("\n!--------------------------------------------------------------------!");
+        }
     }
 }
