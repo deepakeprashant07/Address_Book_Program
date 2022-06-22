@@ -13,26 +13,28 @@ public class AddressBookMain {
         AddressBook addressBook = new AddressBook();
         AddressBookMain addressBookMain = new AddressBookMain();
         Map<String, List<PersonInformation>> map = addressBookRepository.getAddressBooksObject();
+        String name,bookName;
         while (true) {
             if (map.isEmpty()) {
                 System.out.println("Address Book Empty");
                 addressBookMain.addContact(addressBook.addAddressBook());
-            } else {
+            } else
+            {
                 addressBook.showChoice();
                 int choice = scan.nextInt();
-                String name;
                 switch (choice) {
                     case addNewAddressBook:
-                        String addressBookName = addressBook.checkAddressBook(map);
-                        if (addressBookName == null){
+                        bookName = addressBook.checkAddressBook(map);
+                        if (bookName == null){
                             System.out.println("Address Book Already Exits");
                         }else {
-                            addressBookMain.addContact(addressBookName);
+                            addressBookMain.addContact(bookName);
                             break;
                         }
                         break;
                     case addNewContact:
-                        addressBookMain.addContact(addressBook.choiceAddressBook(map));
+                        bookName = addressBook.choiceAddressBook(map);
+                        addressBookMain.addContact(bookName);
                         break;
                     case editContact:
                         System.out.println("ENTER PERSON NAME");

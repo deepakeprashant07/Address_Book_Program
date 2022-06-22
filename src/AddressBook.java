@@ -13,7 +13,7 @@ public class AddressBook {
     }
     public String checkAddressBook(Map<String, List<PersonInformation>> map) {
         System.out.println("Enter Address Book Name");
-        addressBookName = scan.nextLine();
+        addressBookName = scan.next();
         if (map.containsKey(addressBookName)) {
             return null;
         }
@@ -30,7 +30,7 @@ public class AddressBook {
         Set<String> setKey = map.keySet();
         System.out.println(setKey);
         System.out.println("Choice Address Book");
-        addressBookName = scan.nextLine();
-        return addressBookName;
+        String name = scan.next();
+        return name;
     }
 }

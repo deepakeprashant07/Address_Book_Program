@@ -1,4 +1,6 @@
 import java.util.*;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class AddressBookRepository {
     List<PersonInformation> personInformationList = new ArrayList<>();
@@ -10,8 +12,16 @@ public class AddressBookRepository {
     public void addContactList(String name , PersonInformation personObject) {
         if (map.containsKey(name)) {
             personInformationList = map.get(name);
-            personInformationList.add(personObject);
-            map.put(name, personInformationList);
+            long duplicate = personInformationList.stream()
+                                                  .map(PersonInformation::getFirstName)
+                                                  .filter(n->n.equals(personObject.firstName))
+                                                  .count();
+            if (duplicate == 0) {
+                personInformationList.add(personObject);
+                map.put(name, personInformationList);
+            }else {
+                System.out.println("Person name already exits");
+            }
         } else {
             List<PersonInformation> personInformationList = new ArrayList<>();
             personInformationList.add(personObject);
