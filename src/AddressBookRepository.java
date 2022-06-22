@@ -5,21 +5,22 @@ import java.util.stream.Collectors;
 public class AddressBookRepository {
     List<PersonInformation> personInformationList = new ArrayList<>();
     Map<String, List<PersonInformation>> map = new HashMap<>();
+
     public Map<String, List<PersonInformation>> getAddressBooksObject() {
         return map;
     }
 
-    public void addContactList(String name , PersonInformation personObject) {
+    public void addContactList(String name, PersonInformation personObject) {
         if (map.containsKey(name)) {
             personInformationList = map.get(name);
             long duplicate = personInformationList.stream()
-                                                  .map(PersonInformation::getFirstName)
-                                                  .filter(n->n.equals(personObject.firstName))
-                                                  .count();
+                    .map(PersonInformation::getFirstName)
+                    .filter(n -> n.equals(personObject.firstName))
+                    .count();
             if (duplicate == 0) {
                 personInformationList.add(personObject);
                 map.put(name, personInformationList);
-            }else {
+            } else {
                 System.out.println("Person name already exits");
             }
         } else {
@@ -29,14 +30,26 @@ public class AddressBookRepository {
         }
     }
 
-
     public void show() {
         for (Map.Entry<String, List<PersonInformation>> entry : map.entrySet()) {
             System.out.println("Address Book = " + entry.getKey() + "" + entry.getValue());
         }
     }
 
-    public void editContact(String name) {
+    public void searchCityOrState(String locationName) {
+        personInformationList.stream()
+                             .filter(n->n.city.contains(locationName)
+                                     || n.state.contains(locationName))
+                             .forEach(n-> System.out.println(" "+n.getFirstName()+" "+n.getLastName()
+                                                                +"\t "+n.getPhoneNumber()
+                                                                +"\t" +n.getCity()+" "+n.getState()
+                                                                +"\n"));
+        int count = (int) personInformationList.stream()
+                                               .filter(n->n.city.contains(locationName)
+                                                       || n.state.contains(locationName))
+                                               .count();
+        System.out.println("\n\t\t\tTotal = "+count);
+
     }
 
     public void removeContact(String name) {
@@ -50,4 +63,8 @@ public class AddressBookRepository {
         }
         System.out.println("Name Does Not Exist");
     }
+
+    public void editContact(String name) {
+    }
+
 }

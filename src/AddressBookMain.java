@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class AddressBookMain {
     public static final int addNewAddressBook = 1;
     public static final int addNewContact = 2, editContact = 3, deleteContact = 4;
-    public static final int showHistory = 5, exits = 6;
+    public static final int showHistory = 5, search =6 ,exits = 7;
     static Scanner scan = new Scanner(System.in);
     static AddressBookRepository addressBookRepository = new AddressBookRepository();
 
@@ -48,6 +48,9 @@ public class AddressBookMain {
                         break;
                     case showHistory:
                         addressBookRepository.show();
+                        break;
+                    case search:
+                        addressBookRepository.searchCityOrState(addressBook.getAddressBookName());
                         break;
                     case exits:
                         System.out.println("Thank You ..!");

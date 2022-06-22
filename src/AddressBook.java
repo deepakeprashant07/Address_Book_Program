@@ -23,7 +23,7 @@ public class AddressBook {
     public void showChoice() {
         System.out.println(" ENTER 1] ADD NEW ADDRESS BOOK \n ENTER 2] ADD CONTACT INFORMATION");
         System.out.println(" ENTER 3] EDIT CONTACT INFORMATION \n ENTER 4] DELETE CONTACT INFORMATION");
-        System.out.println(" ENTER 5] HISTORY \n ENTER 6] EXIT");
+        System.out.println(" ENTER 5] HISTORY \n ENTER 6] SEARCH \n ENTER 7] EXITS");
     }
 
     public String choiceAddressBook(Map<String, List<PersonInformation>> map) {
@@ -32,5 +32,11 @@ public class AddressBook {
         System.out.println("Choice Address Book");
         String name = scan.next();
         return name;
+    }
+
+    public String getAddressBookName() {
+        System.out.println("Enter city or state name");
+        String location = scan.next();
+        return location;
     }
 }
