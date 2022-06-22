@@ -1,46 +1,43 @@
 import java.util.*;
 
 public class AddressBookRepository {
-    ArrayList<String> addressBook = new ArrayList<>();
     List<PersonInformation> personInformationList = new ArrayList<>();
-    HashMap<List<String>, List<PersonInformation>> map = new HashMap<>();
-
-    public ArrayList<String> getAddressBooksObject() {
-        return addressBook;
+    Map<String, List<PersonInformation>> map = new HashMap<>();
+    public Map<String, List<PersonInformation>> getAddressBooksObject() {
+        return map;
     }
 
-    public void addList(String name) {
-        if (addressBook.contains(name)) {
-            System.out.println("Address Book Name Already exits");
-        } else {
-            addressBook.add(name);
-        }
-    }
-
-    public void addContactList(PersonInformation personObject, int index) {
-
-        if (map.containsKey(Arrays.asList(addressBook.get(index-1)))){
-            System.out.println("1fhfhg");
-            personInformationList = map.get(Arrays.asList(addressBook.get(index-1)));
+    public void addContactList(String name , PersonInformation personObject) {
+        if (map.containsKey(name)) {
+            personInformationList = map.get(name);
             personInformationList.add(personObject);
-            map.put(Arrays.asList(addressBook.get(index-1)), personInformationList);
-        }else {
+            map.put(name, personInformationList);
+        } else {
             List<PersonInformation> personInformationList = new ArrayList<>();
             personInformationList.add(personObject);
-            map.put(Arrays.asList(addressBook.get(index-1)), personInformationList);
+            map.put(name, personInformationList);
         }
     }
-    public void show(){
-        for (Map.Entry<List<String>, List<PersonInformation>> entry : map.entrySet()) {
-            System.out.println("Address Book = "+entry.getKey()+""+entry.getValue());
+
+
+    public void show() {
+        for (Map.Entry<String, List<PersonInformation>> entry : map.entrySet()) {
+            System.out.println("Address Book = " + entry.getKey() + "" + entry.getValue());
         }
     }
-    public void showAddressBook() {
-        int i = 0;
-        for (String show: addressBook) {
-            System.out.print(" "+(i+1)+"] "+show);
-            i++;
+
+    public void editContact(String name) {
+    }
+
+    public void removeContact(String name) {
+        for (int i = 0; i < personInformationList.size(); i++) {
+            if (name.equals(personInformationList.get(i).firstName)) {
+                System.out.println("DELETED ALL INFORMATION " + personInformationList.get(i).firstName
+                        + " " + personInformationList.get(i).lastName);
+                personInformationList.remove(i);
+                break;
+            }
         }
-        System.out.println("\nSelect Number (Example : 1)");
+        System.out.println("Name Does Not Exist");
     }
 }

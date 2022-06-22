@@ -1,6 +1,6 @@
 public class PersonInformation {
     public String firstName, lastName, address, addressBook;
-    public String city,state,zip, phoneNumber, emailId,key;
+    public String city, state, zip, phoneNumber, emailId, key;
 
     @Override
     public String toString() {

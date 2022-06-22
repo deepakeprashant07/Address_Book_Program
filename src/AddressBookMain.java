@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class AddressBookMain {
@@ -11,23 +12,37 @@ public class AddressBookMain {
     public static void main(String[] args) {
         AddressBook addressBook = new AddressBook();
         AddressBookMain addressBookMain = new AddressBookMain();
+        Map<String, List<PersonInformation>> map = addressBookRepository.getAddressBooksObject();
         while (true) {
-            if (addressBookRepository.getAddressBooksObject().isEmpty()) {
+            if (map.isEmpty()) {
                 System.out.println("Address Book Empty");
-                addressBookRepository.addList(addressBook.addAddressBook());
+                addressBookMain.addContact(addressBook.addAddressBook());
             } else {
                 addressBook.showChoice();
                 int choice = scan.nextInt();
+                String name;
                 switch (choice) {
                     case addNewAddressBook:
-                        addressBookRepository.addList(addressBook.addAddressBook());
+                        String addressBookName = addressBook.checkAddressBook(map);
+                        if (addressBookName == null){
+                            System.out.println("Address Book Already Exits");
+                        }else {
+                            addressBookMain.addContact(addressBookName);
+                            break;
+                        }
                         break;
                     case addNewContact:
-                        addressBookMain.addContact();
+                        addressBookMain.addContact(addressBook.choiceAddressBook(map));
                         break;
                     case editContact:
+                        System.out.println("ENTER PERSON NAME");
+                        name = scan.next();
+                        addressBookRepository.editContact(name);
                         break;
                     case deleteContact:
+                        System.out.println("ENTER PERSON NAME");
+                        name = scan.next();
+                        addressBookRepository.removeContact(name);
                         break;
                     case showHistory:
                         addressBookRepository.show();
@@ -40,7 +55,7 @@ public class AddressBookMain {
         }
     }
 
-    private void addContact() {
+    public void addContact(String name) {
         PersonInformation personObject = new PersonInformation();
         System.out.println("ENTER PERSON FIRST NAME AND LAST NAME");
         personObject.firstName = scan.next();
@@ -55,8 +70,6 @@ public class AddressBookMain {
         personObject.phoneNumber = scan.next();
         System.out.println("ENTER PERSON EMAIL ID");
         personObject.emailId = scan.next();
-        addressBookRepository.showAddressBook();
-        int index = scan.nextInt();
-        addressBookRepository.addContactList(personObject ,index);
+        addressBookRepository.addContactList(name ,personObject);
     }
 }
