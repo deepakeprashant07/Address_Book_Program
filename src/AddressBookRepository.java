@@ -1,11 +1,15 @@
 import java.util.*;
+import java.util.function.Function;
+import java.util.function.ToDoubleFunction;
+import java.util.function.ToIntFunction;
+import java.util.function.ToLongFunction;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class AddressBookRepository {
     List<PersonInformation> personInformationList = new ArrayList<>();
-    Map<String, List<PersonInformation>> map = new HashMap<>();
-
+    Map<String, List<PersonInformation>> map = new TreeMap<>();
+    Scanner scan = new Scanner(System.in);
     public Map<String, List<PersonInformation>> getAddressBooksObject() {
         return map;
     }
@@ -34,6 +38,14 @@ public class AddressBookRepository {
         for (Map.Entry<String, List<PersonInformation>> entry : map.entrySet()) {
             System.out.println("Address Book = " + entry.getKey() + "" + entry.getValue());
         }
+    }
+
+    public void sortedName(){
+        Map<String,List<PersonInformation>> sortedName = personInformationList
+                                                                 .stream()
+                                                                 .collect(Collectors
+                                                                 .groupingBy(PersonInformation::getFirstName));
+        System.out.println(sortedName);
     }
 
     public void searchCityOrState(String locationName) {
@@ -67,4 +79,11 @@ public class AddressBookRepository {
     public void editContact(String name) {
     }
 
+    public void handleDisplay() {
+        Set<String> setKey = map.keySet();
+        System.out.println(setKey);
+        System.out.println("Choice Address Book");
+        String name = scan.next();
+        System.out.println(map.get(name));
+    }
 }

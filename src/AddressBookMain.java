@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class AddressBookMain {
     public static final int addNewAddressBook = 1;
     public static final int addNewContact = 2, editContact = 3, deleteContact = 4;
-    public static final int showHistory = 5, search =6 ,exits = 7;
+    public static final int showHistory = 5, search = 6, FILTER = 7, exits = 8;
     static Scanner scan = new Scanner(System.in);
     static AddressBookRepository addressBookRepository = new AddressBookRepository();
 
@@ -13,21 +13,20 @@ public class AddressBookMain {
         AddressBook addressBook = new AddressBook();
         AddressBookMain addressBookMain = new AddressBookMain();
         Map<String, List<PersonInformation>> map = addressBookRepository.getAddressBooksObject();
-        String name,bookName;
+        String name, bookName;
         while (true) {
             if (map.isEmpty()) {
                 System.out.println("Address Book Empty");
                 addressBookMain.addContact(addressBook.addAddressBook());
-            } else
-            {
+            } else {
                 addressBook.showChoice();
                 int choice = scan.nextInt();
                 switch (choice) {
                     case addNewAddressBook:
                         bookName = addressBook.checkAddressBook(map);
-                        if (bookName == null){
+                        if (bookName == null) {
                             System.out.println("Address Book Already Exits");
-                        }else {
+                        } else {
                             addressBookMain.addContact(bookName);
                             break;
                         }
@@ -47,10 +46,13 @@ public class AddressBookMain {
                         addressBookRepository.removeContact(name);
                         break;
                     case showHistory:
-                        addressBookRepository.show();
+                        addressBookRepository.handleDisplay();
                         break;
                     case search:
                         addressBookRepository.searchCityOrState(addressBook.getAddressBookName());
+                        break;
+                    case FILTER:
+                        addressBookRepository.sortedName();
                         break;
                     case exits:
                         System.out.println("Thank You ..!");
@@ -75,6 +77,6 @@ public class AddressBookMain {
         personObject.phoneNumber = scan.next();
         System.out.println("ENTER PERSON EMAIL ID");
         personObject.emailId = scan.next();
-        addressBookRepository.addContactList(name ,personObject);
+        addressBookRepository.addContactList(name, personObject);
     }
 }
